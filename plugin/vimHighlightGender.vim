@@ -22,11 +22,22 @@ else
     let g:genderToHighlight = tolower(g:genderToHighlight)
 endif
 
-augroup gender
-    autocmd!
-    " au BufRead,BufEnter,InsertChange * if &spelllang =~ g:genderToHighlight | call vim-highlight-gender#HighlightGenders | else echo "hi" | endif
-    au BufRead,BufEnter,InsertChange * if &spelllang =~ g:genderToHighlight | call vimHighlightGender#HighlightGenders() | else | call vimHighlightGender#ClearHightlightedGenders() | endif
-augroup END
+function! _HighlightGenders()
+    call vimHighlightGender#HighlightGenders()
+endfunction
+function! _ClearHighlightedGenders()
+    call vimHighlightGender#ClearHightlightedGenders()
+endfunction
+
+" augroup gender
+"     autocmd!
+"     " au BufRead,BufEnter,InsertChange * if &spelllang =~ g:genderToHighlight | call vim-highlight-gender#HighlightGenders | else echo "hi" | endif
+"     au BufRead,BufEnter,InsertChange * if &spelllang =~ g:genderToHighlight |
+"                 \ call _HighlightGenders() |
+"                 \else |
+"                 \ echo "Fuuuuck" |
+"                 \endif
+" augroup END
 " syntax clear
 
 

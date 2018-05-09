@@ -10,10 +10,10 @@
 " Language can be changed by setting g:genderToHighlight. Should be the 2-letter lang code.
 "
 
-function! vim-highlight-gender#HighlightGenders()
+let s:dictPath = expand('<sfile>:p:h') . expand("/" . g:genderToHighlight . "-nouns/")
+function! vimHighlightGender#HighlightGenders()
     echom "Loaded gender highlighting"
     let s:cwd = getcwd()
-    let s:dictPath = expand('<sfile>:p:h') . expand("/" . g:genderToHighlight . "-nouns/")
     exec 'lcd ' . s:dictPath
     setlocal iskeyword+=-
     " let s:oldSynCaseMatch = &syn case
@@ -47,7 +47,7 @@ function! vim-highlight-gender#HighlightGenders()
     exec 'lcd ' . s:cwd
 endfunction
 
-function! vim-highlight-gender#ClearHighlightedGenders()
+function! vimHighlightGender#ClearHighlightedGenders()
     syntax clear masculine
     syntax clear feminine
     syntax clear neuter
