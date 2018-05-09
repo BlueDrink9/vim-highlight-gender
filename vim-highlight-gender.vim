@@ -11,9 +11,9 @@
 "
 "
 
-if exists("b:current_syntax")
-    finish
-endif
+" if exists("b:current_syntax")
+"     finish
+" endif
 
 augroup gender
     autocmd!
