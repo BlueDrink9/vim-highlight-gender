@@ -9,25 +9,8 @@
 " Place extracted dictionary files in "[scriptdir]/[language]-nouns/"
 " Language can be changed by setting g:genderToHighlight. Should be the 2-letter lang code.
 "
-"
 
-" if exists("b:current_syntax")
-"     finish
-" endif
-
-augroup gender
-    autocmd!
-    au BufRead,BufEnter,InsertChange * if &spelllang =~ g:genderToHighlight | call HighlightGenders | else call ClearHightlightedGenders | endif
-augroup END
-" syntax clear
-
-if !exists(g:genderToHighlight)
-    let g:genderToHighlight = "de"
-else
-    let g:genderToHighlight = tolower(g:genderToHighlight)
-endif
-
-function! HighlightGenders()
+function! vim-highlight-gender#HighlightGenders()
     echom "Loaded gender highlighting"
     let s:cwd = getcwd()
     let s:dictPath = expand('<sfile>:p:h') . expand("/" . g:genderToHighlight . "-nouns/")
@@ -64,10 +47,8 @@ function! HighlightGenders()
     exec 'lcd ' . s:cwd
 endfunction
 
-function! ClearHighlightedGenders()
+function! vim-highlight-gender#ClearHighlightedGenders()
     syntax clear masculine
     syntax clear feminine
     syntax clear neuter
 endfunction
-
-let b:current_syntax = "vim-gender-highlight"
