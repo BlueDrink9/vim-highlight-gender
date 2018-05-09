@@ -1,6 +1,11 @@
 # vim-highlight-gender
 Highlight gender of nouns in a language, defined by a dictionary file. Designed for German.
 
+## Requirements
+
+3 files, `masc.txt`, `fem.txt` and `neut.txt`, which contain a single noun on each line of the gender specified by the file.
+How to generate such files is covered in **installation**.
+
 ## Installation
 
 1. Place in runtimepath.
