@@ -30,10 +30,15 @@ endfunction
 
 augroup gender
     autocmd!
-    au BufRead,OptionSet,BufEnter,InsertChange *
+    au OptionSet spelllang if &spell && &spelllang =~ g:genderToHighlight |
+                \ call HighlightGenders() | endif
+    au BufRead,BufEnter *
                 \ if &spell && &spelllang =~ g:genderToHighlight |
                 \ call HighlightGenders() | endif
-    au BufRead,OptionSet,BufEnter,InsertChange *
+    au OptionSet spelllang
+                \ if !(&spelllang =~ g:genderToHighlight) |
+                \ call ClearHighlightedGenders() | endif
+    au BufRead,BufEnter *
                 \ if !(&spelllang =~ g:genderToHighlight) |
                 \ call ClearHighlightedGenders() | endif
 augroup END
