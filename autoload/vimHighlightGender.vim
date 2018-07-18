@@ -12,43 +12,50 @@
 
 let s:dictPath = expand('<sfile>:p:h') . expand("/" . g:genderToHighlight . "-nouns/")
 function! vimHighlightGender#HighlightGenders()
-    echom "Loaded gender highlighting"
-    let s:cwd = getcwd()
-    exec 'lcd ' . s:dictPath
-    setlocal iskeyword+=-
-    " let s:oldSynCaseMatch = &syn case
-    syn case match
+    if !exists("b:loaded") || b:loaded==0
+        echom "Loaded gender highlighting"
+        let s:cwd = getcwd()
+        exec 'lcd ' . s:dictPath
+        setlocal iskeyword+=-
+        " let s:oldSynCaseMatch = &syn case
+        syn case match
 
-    " Currently unused. May eventually be used for plurals, endings, etc so more
-    " nouns are recognised.
-    let s:possibleEndings = ['en', 's', 'e']
+        " Currently unused. May eventually be used for plurals, endings, etc so more
+        " nouns are recognised.
+        let s:possibleEndings = ['en', 's', 'e']
 
-    let s:mascWords = join(readfile('masc.txt'))
-    exec 'syn keyword masculine ' . s:mascWords
-    let s:femWords = join(readfile('fem.txt'))
-    exec 'syn keyword feminine ' . s:femWords
-    " let s:neutWords = join(readfile('neut.txt'))
-    " exec 'syn keyword neuter ' . s:neutWords
+        let s:mascWords = join(readfile('masc.txt'))
+        exec 'syn keyword masculine ' . s:mascWords
+        let s:femWords = join(readfile('fem.txt'))
+        exec 'syn keyword feminine ' . s:femWords
+        " let s:neutWords = join(readfile('neut.txt'))
+        " exec 'syn keyword neuter ' . s:neutWords
 
-    " For some reason, neuter's file isn't playing nice with the one-line method.
-    let s:neutWords = readfile('neut.txt')
-    for wor in s:neutWords
-        exec 'syn keyword neuter ' . wor
-    endfor
+        " For some reason, neuter's file isn't playing nice with the one-line method.
+        let s:neutWords = readfile('neut.txt')
+        for wor in s:neutWords
+            exec 'syn keyword neuter ' . wor
+        endfor
 
-    " solarized: Constant is more of a cyan, directory is semi-consistently blue, even outside of sol.
-    " highlight link masculine Constant
-    highlight link masculine Directory
-    " sol: helpnote is pink.
-    highlight link feminine helpNote
-    " sol: statement is green.
-    highlight link neuter Statement
+        " solarized: Constant is more of a cyan, directory is semi-consistently blue, even outside of sol.
+        " highlight link masculine Constant
+        highlight link masculine Directory
+        " sol: helpnote is pink.
+        highlight link feminine helpNote
+        " sol: statement is green.
+        highlight link neuter Statement
 
-    exec 'lcd ' . s:cwd
+        let b:loaded=1
+        exec 'lcd ' . s:cwd
+    endif
 endfunction
 
 function! vimHighlightGender#ClearHighlightedGenders()
-    syntax clear masculine
-    syntax clear feminine
-    syntax clear neuter
+    if exists("b:loaded") && b:loaded==1
+        echom "Cleared gender highlighting"
+        syntax clear masculine
+        syntax clear feminine
+        syntax clear neuter
+        let b:loaded=0
+    endif
 endfunction

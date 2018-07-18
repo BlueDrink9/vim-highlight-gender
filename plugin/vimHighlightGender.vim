@@ -25,13 +25,17 @@ function! HighlightGenders()
     call vimHighlightGender#HighlightGenders()
 endfunction
 function! ClearHighlightedGenders()
-    call vimHighlightGender#ClearHightlightedGenders()
+    call vimHighlightGender#ClearHighlightedGenders()
 endfunction
 
 augroup gender
     autocmd!
-    au BufRead,BufEnter,InsertChange * if &spelllang =~ g:genderToHighlight |
+    au BufRead,OptionSet,BufEnter,InsertChange *
+                \ if &spelllang =~ g:genderToHighlight |
                 \ call HighlightGenders() | endif
+    au BufRead,OptionSet,BufEnter,InsertChange *
+                \ if !(&spelllang =~ g:genderToHighlight) |
+                \ call ClearHighlightedGenders() | endif
 augroup END
 " syntax clear
 

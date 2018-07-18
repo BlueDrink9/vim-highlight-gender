@@ -24,5 +24,4 @@ How to generate such files is covered in **installation**.
 
 Language can be changed by setting g:genderToHighlight. Should be the 2-letter lang code (e.g. "de").
 
-
 Only tested with german using the dict.cc dictionary.
