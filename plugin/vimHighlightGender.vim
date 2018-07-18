@@ -30,14 +30,17 @@ endfunction
 
 augroup gender
     autocmd!
-    au OptionSet spelllang if &spell && &spelllang =~ g:genderToHighlight |
-                \ call HighlightGenders() | endif
+    if v:version >= 704
+        au OptionSet
+                    \ if &spell && &spelllang =~ g:genderToHighlight |
+                    \ call HighlightGenders() | endif
+        au OptionSet spelllang
+                    \ if !(&spelllang =~ g:genderToHighlight) |
+                    \ call ClearHighlightedGenders() | endif
+    endif
     au BufRead,BufEnter *
                 \ if &spell && &spelllang =~ g:genderToHighlight |
                 \ call HighlightGenders() | endif
-    au OptionSet spelllang
-                \ if !(&spelllang =~ g:genderToHighlight) |
-                \ call ClearHighlightedGenders() | endif
     au BufRead,BufEnter *
                 \ if !(&spelllang =~ g:genderToHighlight) |
                 \ call ClearHighlightedGenders() | endif
