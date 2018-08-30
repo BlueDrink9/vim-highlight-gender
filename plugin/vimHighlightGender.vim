@@ -31,7 +31,7 @@ endfunction
 augroup gender
     autocmd!
     if v:version >= 704
-        au OptionSet
+        au OptionSet spelllang
                     \ if &spell && &spelllang =~ g:genderToHighlight |
                     \ call HighlightGenders() | endif
         au OptionSet spelllang
